@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#100d22" />
+  <meta
+    name="description"
+    content="Visit Game zone, a video arcade in Boumhel El Bassatine. Find directions and check the latest opening hours."
+  />
+  <title>Game zone | Video Arcade in Boumhel</title>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --background: #100d22;
+      --surface: #1b1732;
+      --text: #f7f3ff;
+      --muted: #b8b1ce;
+      --pink: #ff4fd8;
+      --cyan: #45e6ff;
+      --yellow: #ffe66d;
+      --border: rgba(255, 255, 255, 0.13);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 75% 15%, rgba(114, 55, 190, 0.2), transparent 35%),
+        var(--background);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--border);
+      background: rgba(16, 13, 34, 0.9);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-size: 1.15rem;
+      font-weight: 850;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-icon {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--pink), #8e5bff);
+      box-shadow: 0 0 24px rgba(255, 79, 216, 0.3);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--cyan);
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 20px;
+      border: 0;
+      border-radius: 12px;
+      background: linear-gradient(100deg, var(--pink), #9b64ff);
+      color: #fff;
+      font: inherit;
+      font-weight: 750;
+      text-decoration: none;
+      box-shadow: 0 8px 26px rgba(190, 71, 231, 0.22);
+      transition: transform 160ms ease, filter 160ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+
+    .button-outline {
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: none;
+    }
+
+    .hero {
+      min-height: 620px;
+      display: grid;
+      align-items: center;
+      padding: 78px 0;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 18px;
+      color: var(--cyan);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 24px;
+      height: 2px;
+      background: currentColor;
+      content: "";
+    }
+
+    h1 {
+      max-width: 650px;
+      margin: 0;
+      font-size: clamp(3.2rem, 8vw, 6.5rem);
+      line-height: 0.98;
+      letter-spacing: -0.07em;
+    }
+
+    h1 span {
+      color: var(--pink);
+      text-shadow: 0 0 30px rgba(255, 79, 216, 0.32);
+    }
+
+    .hero-copy {
+      max-width: 540px;
+      margin: 24px 0 30px;
+      color: var(--muted);
+      font-size: 1.12rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 30px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .stars {
+      color: var(--yellow);
+      letter-spacing: 0.12em;
+    }
+
+    .arcade-art {
+      position: relative;
+      min-height: 390px;
+      display: grid;
+      place-items: center;
+      isolation: isolate;
+    }
+
+    .arcade-art::before {
+      position: absolute;
+      z-index: -1;
+      width: min(440px, 85vw);
+      aspect-ratio: 1;
+      border: 1px solid rgba(69, 230, 255, 0.28);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(69, 230, 255, 0.12), transparent 68%);
+      box-shadow: 0 0 90px rgba(69, 230, 255, 0.12);
+      content: "";
+    }
+
+    .arcade-cabinet {
+      position: relative;
+      width: min(260px, 70%);
+      padding: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-radius: 22px 22px 32px 32px;
+      background: linear-gradient(145deg, #33235b, #17142a 70%);
+      box-shadow:
+        0 0 24px rgba(255, 79, 216, 0.24),
+        14px 18px 0 #0b0916;
+      transform: rotate(-4deg);
+    }
+
+    .cabinet-top {
+      margin: 0 0 10px;
+      color: var(--yellow);
+      font-size: 0.75rem;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      text-align: center;
+      text-shadow: 0 0 12px rgba(255, 230, 109, 0.6);
+    }
+
+    .screen {
+      position: relative;
+      height: 260px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 7px solid #0b0916;
+      border-radius: 12px;
+      background:
+        linear-gradient(rgba(69, 230, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(69, 230, 255, 0.08) 1px, transparent 1px),
+        #101c34;
+      background-size: 22px 22px;
+    }
+
+    .screen::after {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.2) 50%);
+      background-size: 100% 5px;
+      content: "";
+      pointer-events: none;
+    }
+
+    .pixel-heart {
+      color: var(--pink);
+      font-size: 4.5rem;
+      text-shadow: 0 0 28px var(--pink);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    .cabinet-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 18px 0 4px;
+    }
+
+    .joystick {
+      width: 13px;
+      height: 34px;
+      border-radius: 9px;
+      background: var(--cyan);
+      box-shadow: 0 0 12px rgba(69, 230, 255, 0.6);
+    }
+
+    .joystick::before {
+      display: block;
+      width: 23px;
+      height: 23px;
+      margin: -7px 0 0 -5px;
+      border-radius: 50%;
+      background: var(--pink);
+      content: "";
+    }
+
+    .cabinet-button {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--yellow);
+      box-shadow: 0 0 10px rgba(255, 230, 109, 0.6);
+    }
+
+    .float-tag {
+      position: absolute;
+      padding: 9px 13px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(27, 23, 50, 0.9);
+      color: var(--cyan);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      transform: rotate(5deg);
+    }
+
+    .tag-one { top: 15%; right: 2%; }
+    .tag-two { bottom: 14%; left: 3%; color: var(--yellow); transform: rotate(-6deg); }
+
+    section {
+      padding: 82px 0;
+    }
+
+    .section-heading {
+      max-width: 650px;
+      margin: 0 auto 38px;
+      text-align: center;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .info-card {
+      min-height: 190px;
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02));
+    }
+
+    .info-icon {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 18px;
+      place-items: center;
+      border-radius: 13px;
+      background: rgba(69, 230, 255, 0.1);
+      color: var(--cyan);
+      font-size: 1.3rem;
+    }
+
+    .info-card h3 {
+      margin: 0 0 7px;
+      font-size: 1.08rem;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .location-panel {
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--surface);
+    }
+
+    .location-copy {
+      padding: clamp(24px, 5vw, 48px);
+    }
+
+    .location-copy h2 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+    }
+
+    .address {
+      margin: 0 0 22px;
+      color: var(--muted);
+    }
+
+    .map-visual {
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+      padding: 30px;
+      background:
+        linear-gradient(135deg, rgba(69, 230, 255, 0.13), transparent 60%),
+        repeating-linear-gradient(45deg, #201b3b 0 2px, #1a1631 2px 24px);
+      text-align: center;
+    }
+
+    .map-pin {
+      display: grid;
+      width: 76px;
+      height: 76px;
+      margin: 0 auto 15px;
+      place-items: center;
+      border: 1px solid rgba(255, 79, 216, 0.5);
+      border-radius: 50%;
+      background: rgba(255, 79, 216, 0.12);
+      color: var(--pink);
+      font-size: 2rem;
+      box-shadow: 0 0 35px rgba(255, 79, 216, 0.24);
+    }
+
+    .map-visual strong {
+      display: block;
+      font-size: 1.2rem;
+    }
+
+    .map-visual span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .review-card {
+      max-width: 700px;
+      margin-inline: auto;
+      padding: clamp(24px, 5vw, 42px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--surface);
+      text-align: center;
+    }
+
+    .review-score {
+      margin: 7px 0 0;
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 850;
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    .review-card .stars {
+      margin: 12px 0 4px;
+      font-size: 1.3rem;
+    }
+
+    .review-card p {
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    .review-note {
+      font-size: 0.85rem;
+    }
+
+    .cta {
+      padding: 48px 24px;
+      border: 1px solid rgba(255, 79, 216, 0.27);
+      border-radius: 22px;
+      background: radial-gradient(ellipse at top, rgba(255, 79, 216, 0.15), transparent 68%), var(--surface);
+      text-align: center;
+    }
+
+    .cta h2 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 5vw, 3rem);
+    }
+
+    .cta p {
+      margin: 0 0 22px;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 26px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @keyframes pulse {
+      50% { transform: scale(1.12); }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        min-height: 64px;
+      }
+
+      .nav-links {
+        gap: 14px;
+      }
+
+      .nav-links a:not(.button) {
+        display: none;
+      }
+
+      .nav-links .button {
+        min-height: 42px;
+        padding-inline: 14px;
+        font-size: 0.88rem;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 62px 0 40px;
+      }
+
+      .hero-grid,
+      .location-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-grid {
+        gap: 26px;
+      }
+
+      .arcade-art {
+        min-height: 350px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 60px 0;
+      }
+
+      .map-visual {
+        min-height: 250px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Game zone home">
+        <span class="brand-icon" aria-hidden="true">🎮</span>
+        <span>Game zone</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#location">Location</a>
+        <a href="#reviews">Reviews</a>
+        <a
+          class="button"
+          href="https://www.google.com/maps/search/?api=1&query=Game%20zone%2C%20JILANI%2C%20Home%20Slim%2C%20C8%20Rue%2020%20Mars%2C%20Boumhel%20El%20Bassatine%202097"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Get directions <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-grid container">
+        <div>
+          <p class="eyebrow">Video arcade · Boumhel</p>
+          <h1>Ready, player <span>one?</span></h1>
+          <p class="hero-copy">
+            Step into Game zone and make your next outing a little more playful.
+            Find us in Boumhel El Bassatine and come ready for a new high score.
+          </p>
+
+          <div class="hero-actions">
+            <a
+              class="button"
+              href="https://www.google.com/maps/search/?api=1&query=Game%20zone%2C%20JILANI%2C%20Home%20Slim%2C%20C8%20Rue%2020%20Mars%2C%20Boumhel%20El%20Bassatine%202097"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Find us on the map <span aria-hidden="true">↗</span>
+            </a>
+            <a class="button button-outline" href="#about">Explore the page</a>
+          </div>
+
+          <div class="rating" aria-label="Rated 5 out of 5 from 4 reviews">
+            <span class="stars" aria-hidden="true">★★★★★</span>
+            <span><strong>5.0</strong> · 4 Google reviews</span>
+          </div>
+        </div>
+
+        <div class="arcade-art" aria-hidden="true">
+          <span class="float-tag tag-one">INSERT COIN</span>
+          <span class="float-tag tag-two">PLAYER 1</span>
+          <div class="arcade-cabinet">
+            <p class="cabinet-top">GAME ZONE</p>
+            <div class="screen">
+              <span class="pixel-heart">♥</span>
+            </div>
+            <div class="cabinet-controls">
+              <span class="joystick"></span>
+              <span class="cabinet-button"></span>
+              <span class="cabinet-button"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Your next stop</p>
+          <h2>Make room for play.</h2>
+          <p>
+            Game zone is listed as a video arcade in Boumhel El Bassatine.
+            Check the map listing for the latest visit details.
+          </p>
+        </div>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <span class="info-icon" aria-hidden="true">🕹️</span>
+            <h3>A video arcade</h3>
+            <p>A local place to enjoy arcade time in Boumhel El Bassatine.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="info-icon" aria-hidden="true">📍</span>
+            <h3>Easy to find</h3>
+            <p>Use the address or Plus Code to plan your route to Game zone.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="info-icon" aria-hidden="true">⭐</span>
+            <h3>Rated by visitors</h3>
+            <p>The listing you shared shows a 5.0 rating from 4 reviews.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="location">
+      <div class="container">
+        <div class="location-panel">
+          <div class="location-copy">
+            <p class="eyebrow">Come find us</p>
+            <h2>Game on in Boumhel.</h2>
+            <p class="address">
+              JILANI, Home Slim,<br />
+              C8 Rue 20 Mars,<br />
+              Boumhel El Bassatine 2097
+            </p>
+            <p class="address">
+              Plus Code: <strong>P8F2+VM Bou Mhel el-Bassatine</strong>
+            </p>
+            <a
+              class="button"
+              href="https://www.google.com/maps/search/?api=1&query=Game%20zone%2C%20JILANI%2C%20Home%20Slim%2C%20C8%20Rue%2020%20Mars%2C%20Boumhel%20El%20Bassatine%202097"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open directions <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+
+          <div class="map-visual" aria-label="Location: Game zone, Boumhel El Bassatine">
+            <div>
+              <span class="map-pin" aria-hidden="true">⌖</span>
+              <strong>Game zone</strong>
+              <span>Boumhel El Bassatine, Tunisia</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Visitor rating</p>
+          <h2>Five-star vibes.</h2>
+          <p>See the latest visitor feedback on the Google Maps listing.</p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-score">5.0</div>
+          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <p>Based on 4 Google reviews</p>
+          <p class="review-note">
+            Rating and review count are shown as provided; visit Google Maps
+            to read current reviews.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="cta">
+          <p class="eyebrow">See you at the arcade</p>
+          <h2>Your next round awaits.</h2>
+          <p>Plan your visit to Game zone in Boumhel El Bassatine.</p>
+          <a
+            class="button"
+            href="https://www.google.com/maps/search/?api=1&query=Game%20zone%2C%20JILANI%2C%20Home%20Slim%2C%20C8%20Rue%2020%20Mars%2C%20Boumhel%20El%20Bassatine%202097"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Get directions <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© <span id="year"></span> Game zone · Boumhel El Bassatine</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
